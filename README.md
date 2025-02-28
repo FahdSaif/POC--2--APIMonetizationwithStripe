@@ -12,7 +12,8 @@ This project is a **Proof of Concept (POC)** for **API Monetization** using **Ko
 - 🐳 **Dockerized** (Easy deployment with Docker & Docker Compose)
 - 🔄 **Planned:** Crypto Payments via **Sepolia Testnet**
 
----
+---![Uploading Screen Shot 2025-02-28 at 11.49.56 pm.png…]()
+
 
 ## 📂 Project Structure
 ```
