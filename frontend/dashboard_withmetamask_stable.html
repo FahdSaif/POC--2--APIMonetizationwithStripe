@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 10px 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .connect-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .connect-btn:hover {
+            background: #333;
+        }
+        .icon {
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-title">Safe <span style="font-weight: normal;">[WALLET]</span></div>
+        <div class="header-icons">
+            <span class="icon">🔔</span>
+            <span class="icon">🔗</span>
+            <button class="connect-btn" id="connect-wallet">Connect</button>
+        </div>
+    </div>
+
+    <h2>Welcome to Your Dashboard</h2>
+
+    <p><strong>Connected Wallet:</strong> <span id="wallet-address">Not Connected</span></p>
+    <p><strong>Email:</strong> <span id="user-email"></span></p>
+    <p><strong>Package:</strong> <span id="user-package"></span></p>
+    <p><strong>Package Cost:</strong> $<span id="package-cost"></span> AUD</p>
+    <p><strong>Allowed Hits:</strong> <span id="allowed-hits"></span></p>
+    <p><strong>API Key:</strong> <span id="api-key"></span></p>
+
+    <h3>API Usage</h3>
+    <button id="hit-api">Make API Call</button>
+    <p><strong>Remaining Hits:</strong> <span id="remaining-hits">Loading...</span></p>
+
+    <h3>Actions</h3>
+    <button id="sign-out">Sign Out</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Dashboard Loaded");
+
+            const apiKey = localStorage.getItem("apiKey");
+            const userEmail = localStorage.getItem("userEmail");
+            const userPackage = localStorage.getItem("userPackage");
+
+            if (!apiKey || !userEmail || !userPackage) {
+                alert("You must log in first!");
+                window.location.href = "index.html";
+                return;
+            }
+
+            const packagePrices = {
+                basic: 15,
+                intermediate: 20,
+                enterprise: 25
+            };
+
+            const packageHits = {
+                basic: 10,
+                intermediate: 20,
+                enterprise: 30
+            };
+
+            document.getElementById("user-email").textContent = userEmail;
+            document.getElementById("user-package").textContent = userPackage;
+            document.getElementById("package-cost").textContent = packagePrices[userPackage];
+            document.getElementById("allowed-hits").textContent = packageHits[userPackage];
+            document.getElementById("api-key").textContent = apiKey;
+
+            async function checkRemainingHits() {
+                try {
+                    console.log("Making API Call");
+                    const response = await fetch("http://localhost:3000/api/hit", {
+                        method: "GET",
+                        headers: { "apikey": apiKey }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Server responded with status ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    console.log("API Response:", data);
+
+                    document.getElementById("remaining-hits").textContent = data.remainingHits || "0";
+
+                    if (data.remainingHits === 0) {
+                        alert("You have reached your rate limit!");
+                    }
+                } catch (error) {
+                    console.error("API call failed:", error);
+                    alert("Error: Unable to reach the API. Please check your backend.");
+                }
+            }
+
+            document.getElementById("hit-api").addEventListener("click", checkRemainingHits);
+
+            document.getElementById("sign-out").addEventListener("click", function () {
+                console.log("Signing out");
+                localStorage.clear();
+                alert("You have signed out.");
+                window.location.href = "index.html";
+            });
+
+            // Connect MetaMask
+            document.getElementById("connect-wallet").addEventListener("click", async function () {
+                if (typeof window.ethereum !== "undefined") {
+                    try {
+                        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+                        document.getElementById("wallet-address").textContent = accounts[0];
+                        alert(`Connected: ${accounts[0]}`);
+                    } catch (error) {
+                        console.error("MetaMask connection error:", error);
+                        alert("Failed to connect to MetaMask.");
+                    }
+                } else {
+                    alert("MetaMask is not installed. Please install it to continue.");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

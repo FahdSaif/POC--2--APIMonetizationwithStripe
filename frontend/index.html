@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kong API Gateway POC</title>
+</head>
+<body>
+    <h2>Register</h2>
+    <form id="register-form">
+        <label>Username:</label>
+        <input type="text" id="username" required><br><br>
+
+        <label>Email:</label>
+        <input type="email" id="email" required><br><br>
+
+        <label>Password:</label>
+        <input type="password" id="password" required><br><br>
+
+        <label>Package:</label>
+        <select id="package">
+            <option value="basic">Basic - 10 API Calls</option>
+            <option value="intermediate">Intermediate - 20 API Calls</option>
+            <option value="enterprise">Enterprise - 30 API Calls</option>
+        </select><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p id="register-message"></p>
+
+    <h2>Login</h2>
+    <form id="login-form">
+        <label>Email:</label>
+        <input type="email" id="login-email" required><br><br>
+
+        <label>Password:</label>
+        <input type="password" id="login-password" required><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="login-message"></p>
+
+    <script>
+        document.getElementById("register-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const selectedPackage = document.getElementById("package").value;
+
+            const response = await fetch("http://localhost:3000/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, email, password, package: selectedPackage })
+            });
+
+            const data = await response.json();
+            document.getElementById("register-message").textContent = data.message;
+        });
+
+        document.getElementById("login-form").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+
+        const response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+        document.getElementById("login-message").textContent = data.message;
+
+        if (data.apiKey) {
+            localStorage.setItem("apiKey", data.apiKey);
+            localStorage.setItem("userEmail", data.email);
+            localStorage.setItem("userPackage", data.package);
+            alert("Login successful! Redirecting to dashboard...");
+            window.location.href = "dashboard.html";
+        }
+    });
+    </script>
+</body>
+</html>
