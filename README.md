@@ -23,6 +23,12 @@ Please request access using the following link:
 
 For access requests, please open an issue or reach out directly.
 
+## Video Walkthrough
+
+For a detailed walkthrough of this project, check out the video:
+
+▶️ [API Monetization with Stripe - Video Tutorial](https://www.youtube.com/watch?v=dWdjf6nnL3w)
+
 
 ## 📂 Project Structure
 ```
