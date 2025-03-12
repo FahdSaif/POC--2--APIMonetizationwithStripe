@@ -1,4 +1,4 @@
-# 🚀 API Monetization with Stripe - Kong API Gateway POC
+# 🚀 API Monetization with Stripe -  API Gateway POC
 
 This project is a **Proof of Concept (POC)** for **API Monetization** using **Kong API Gateway, Stripe Payments, PostgreSQL, and Docker**. It enables **user authentication, rate limiting, and API access control**, allowing developers to **monetize APIs with Stripe and crypto payments (coming soon).**
 
@@ -8,7 +8,7 @@ This project is a **Proof of Concept (POC)** for **API Monetization** using **Ko
 - 🔑 **User Registration & Authentication** (API Key-based)
 - ⏳ **Rate Limiting** (Based on subscription tier)
 - 💳 **Stripe Payments Integration** (Upgrade & reset API usage)
-- 📡 **Kong API Gateway** (Manages API access)
+- 📡 ** API Gateway** (Manages API access)
 - 🐳 **Dockerized** (Easy deployment with Docker & Docker Compose)
 - 🔄 **Planned:** Crypto Payments via **Sepolia Testnet**
 
