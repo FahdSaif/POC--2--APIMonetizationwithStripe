@@ -14,6 +14,14 @@ This project is a **Proof of Concept (POC)** for **API Monetization** using **Ko
 
 ![API Monetization with Stripe](https://github.com/user-attachments/assets/f605d7b6-ecb2-4c3d-bda2-b194417b240d)
 
+## Docker Hub File Access
+
+If you need access to the Docker Hub file, it is stored in a private repository.  
+Please request access using the following link:
+
+🔗 [Private Repo Link](your-private-repo-link-here)
+
+For access requests, please open an issue or reach out directly.
 
 
 ## 📂 Project Structure
