@@ -19,7 +19,7 @@ This project is a **Proof of Concept (POC)** for **API Monetization** using **Ko
 If you need access to the Docker Hub file, it is stored in a private repository.  
 Please request access using the following link:
 
-🔗 [Private Repo Link](your-private-repo-link-here)
+🔗 [Private Repo Link](https://hub.docker.com/repository/docker/fahdsaif/api-gateway-stripe/general)
 
 For access requests, please open an issue or reach out directly.
 
