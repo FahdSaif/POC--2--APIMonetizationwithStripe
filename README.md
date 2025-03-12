@@ -27,7 +27,7 @@ For access requests, please open an issue or reach out directly.
 
 For a detailed walkthrough of this project, check out the video:
 
-▶️ [API Monetization with Stripe - Video Tutorial](https://www.youtube.com/watch?v=dWdjf6nnL3w)
+▶️ [![API Monetization Video](https://github.com/user-attachments/assets/076fef77-e3c5-4aff-b332-5b34d5da7885)](https://www.youtube.com/watch?v=dWdjf6nnL3w)
 
 
 ## 📂 Project Structure
